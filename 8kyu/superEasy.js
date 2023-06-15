@@ -9,5 +9,3 @@
 //   }
 
   let problem = (x) => typeof(x) !== "number" ? "Error" : x * 50 + 6; 
-
-  
