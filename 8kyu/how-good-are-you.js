@@ -1,0 +1,1 @@
+let betterThanAverage = (classPoints, yourPoints) => classPoints.reduce((acc,sum) => acc + sum, 0)/ classPoints.length > yourPoints ? false : true;
