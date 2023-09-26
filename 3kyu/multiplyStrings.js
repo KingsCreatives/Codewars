@@ -1,46 +1,36 @@
-function multiply(str, ing) {
-    // Check if either input number is zero
-    if (str === '0' || ing === '0') {
-      return '0';
+function multiply(n, o){
+  let prefix = /^\-/.test(n) + /^\-/.test(o) === 1 ? '-' : '';
+  let dotIndex = (n.indexOf('.') === -1 ? 0 : (n.length - n.indexOf('.') - 1)) + (o.indexOf('.') === -1 ? 0 : (o.length - o.indexOf('.') - 1));
+  o = o.replace(/\-|\./g,'').split('').reverse();
+  n = n.replace(/\-|\./g,'').split('').reverse();
+  const resArr = [];
+  for (let i = 0; i < o.length; i ++) {
+    for(let j = 0; j < n.length; j ++) {
+      resArr[i + j] ? resArr[i + j] += o[i] * n[j] : resArr[i + j] = o[i] * n[j];
+      resArr[i + j + 1] = Math.floor(resArr[i + j] / 10) + (resArr[i + j + 1] || 0);
+      resArr[i + j] = resArr[i + j] % 10;
     }
-  
-    // Remove leading and trailing zeros, and handle negative signs
-    str = str.replace(/^0+/, '') || '0';
-    ing = ing.replace(/^0+/, '') || '0';
-    
-    const isNegative = (str[0] === '-' && ing[0] !== '-') || (str[0] !== '-' && ing[0] === '-');
-    str = str.replace(/^-/, '');
-    ing = ing.replace(/^-/, '');
-    
-    // Convert the input strings to arrays of digits
-    const num1 = str.split('').map(Number).reverse();
-    const num2 = ing.split('').map(Number).reverse();
-    
-    // Initialize the result array with zeros
-    const result = new Array(num1.length + num2.length).fill(0);
-    
-    // Multiply the numbers digit by digit
-    for (let i = 0; i < num1.length; i++) {
-      for (let j = 0; j < num2.length; j++) {
-        result[i + j] += num1[i] * num2[j];
-        if (result[i + j] >= 10) {
-          result[i + j + 1] += Math.floor(result[i + j] / 10);
-          result[i + j] %= 10;
-        }
+  }
+  let res = resArr.reverse();
+  if (dotIndex) res.splice(res.length - dotIndex, 0 , '.');
+  res = res.join('').replace(/\.(\d*[1-9])?(0+)$/,'.$1').replace(/\.$|^0+/g,'').replace(/^\./, '0.');
+  return (res === '0' || !res) ? '0' : prefix + res;
+  function multiply(n, o){
+    let prefix = /^\-/.test(n) + /^\-/.test(o) === 1 ? '-' : '';
+    let dotIndex = (n.indexOf('.') === -1 ? 0 : (n.length - n.indexOf('.') - 1)) + (o.indexOf('.') === -1 ? 0 : (o.length - o.indexOf('.') - 1));
+    o = o.replace(/\-|\./g,'').split('').reverse();
+    n = n.replace(/\-|\./g,'').split('').reverse();
+    const resArr = [];
+    for (let i = 0; i < o.length; i ++) {
+      for(let j = 0; j < n.length; j ++) {
+        resArr[i + j] ? resArr[i + j] += o[i] * n[j] : resArr[i + j] = o[i] * n[j];
+        resArr[i + j + 1] = Math.floor(resArr[i + j] / 10) + (resArr[i + j + 1] || 0);
+        resArr[i + j] = resArr[i + j] % 10;
       }
     }
-    
-    // Convert the result array back to a string
-    let resultStr = result.reverse().join('');
-    
-    // Remove leading zeros
-    resultStr = resultStr.replace(/^0+/, '0');
-    
-    // Add back the negative sign if necessary
-    if (isNegative) {
-      resultStr = '-' + resultStr;
-    }
-    
-    return resultStr;
+    let res = resArr.reverse();
+    if (dotIndex) res.splice(res.length - dotIndex, 0 , '.');
+    res = res.join('').replace(/\.(\d*[1-9])?(0+)$/,'.$1').replace(/\.$|^0+/g,'').replace(/^\./, '0.');
+    return (res === '0' || !res) ? '0' : prefix + res;
   }
-  
+}
