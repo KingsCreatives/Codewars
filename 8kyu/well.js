@@ -22,8 +22,6 @@ function well(x){
   } else {
     return "I smell a series!";
   }
-    
-return count
 }
 // console.log(well())
 // console.log(well(['bad', 'bad', 'bad']), 'Fail!');
