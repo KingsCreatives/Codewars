@@ -11,3 +11,4 @@ function sorter(textbooks) {
 }
 
 console.log(sorter(["Algebra", "history", "Geometry", "english"]));
+console.log(sorter(["Alg#bra", "$istory", "Geom^try", "**english"])) //["$istory", "**english", "Alg#bra", "Geom^try"];
